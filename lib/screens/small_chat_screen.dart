@@ -38,6 +38,7 @@ class SmallChatScreen extends StatelessWidget {
               suffixIcon: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: const [
                     Icon(Icons.camera_alt),
