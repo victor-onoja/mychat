@@ -34,8 +34,8 @@ class BigScreen extends StatelessWidget {
                     image: AssetImage('assets/chatbg.png'), fit: BoxFit.cover)),
             child: Column(
               children: [
-                BigScreenChatAppBar(),
-                Expanded(child: ChatList()),
+                const BigScreenChatAppBar(),
+                const Expanded(child: ChatList()),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.07,
                   padding: const EdgeInsets.all(10),

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mychat/screens/small_chat_screen.dart';
 import 'package:mychat/widgets/colors.dart';
@@ -6,6 +8,9 @@ import 'package:mychat/widgets/info.dart';
 
 class ContactsList extends StatelessWidget {
   const ContactsList({Key? key}) : super(key: key);
+
+  static final customCacheManager = CacheManager(Config('customCacheKey',
+      stalePeriod: const Duration(days: 15), maxNrOfCacheObjects: 100));
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +36,23 @@ class ContactsList extends StatelessWidget {
                       style: GoogleFonts.openSansCondensed(fontSize: 15),
                     ),
                   ),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage:
-                        NetworkImage(info[index]['profilePic'].toString()),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(90),
+                    child: CachedNetworkImage(
+                      imageUrl: info[index]['profilePic'].toString(),
+                      cacheManager: customCacheManager,
+                      key: UniqueKey(),
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.error,
+                        color: Colors.red,
+                        size: 45,
+                      ),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      fit: BoxFit.cover,
+                      height: 45,
+                      width: 45,
+                    ),
                   ),
                   trailing: Text(
                     info[index]['time'].toString(),

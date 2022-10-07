@@ -1,8 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:mychat/widgets/colors.dart';
 
 class BigScreenProfileBar extends StatelessWidget {
   const BigScreenProfileBar({Key? key}) : super(key: key);
+
+  static final customCacheManager = CacheManager(Config('customCacheKey',
+      stalePeriod: const Duration(days: 15), maxNrOfCacheObjects: 100));
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +21,19 @@ class BigScreenProfileBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://www.socialketchup.in/wp-content/uploads/2020/05/fi-vill-JOHN-DOE.jpg'),
-            radius: 20,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(90),
+            child: CachedNetworkImage(
+              imageUrl:
+                  'https://www.socialketchup.in/wp-content/uploads/2020/05/fi-vill-JOHN-DOE.jpg',
+              cacheManager: customCacheManager,
+              key: UniqueKey(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              fit: BoxFit.cover,
+              height: 30,
+              width: 30,
+            ),
           ),
           Row(
             children: [
