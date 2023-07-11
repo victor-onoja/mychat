@@ -2,10 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mychat/features/auth/screens/user_information.dart';
-import 'package:mychat/features/landing/screens/landing_screen.dart';
 import 'package:mychat/firebase_options.dart';
 import 'package:mychat/router.dart';
 import 'package:mychat/widgets/colors.dart';
+
+import 'features/landing/screens/landing_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'myChat',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-            scaffoldBackgroundColor: backgroundColor,
-            appBarTheme: const AppBarTheme(color: appBarColor)),
-        onGenerateRoute: (settings) => generateRoute(settings),
-        home: const UserInform() //LandingScreen(),
-        );
+      title: 'myChat',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: backgroundColor,
+          appBarTheme: const AppBarTheme(color: appBarColor)),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: const LandingScreen(),
+      // UserInform()
+    );
   }
 }
